@@ -1,0 +1,1552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Basuramo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/schedule.css">
+  <link rel="stylesheet" href="css/history.css">
+  <link rel="stylesheet" href="css/collectors.css">
+  <link rel="stylesheet" href="css/profile.css">
+</head>
+<body>
+<div class="phone">
+
+  <!-- STATUS BAR -->
+  <div class="status-bar dark" id="status-bar">
+    <span>9:41</span>
+    <div class="notch"></div>
+    <div class="status-icons"><span>📶</span><span>🔋</span></div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <!-- RATE & REVIEW MODAL (global overlay) -->
+  <div class="modal-overlay" id="review-modal">
+    <div class="modal-sheet">
+      <div class="modal-handle"></div>
+      <div class="modal-title">Rate Your Pickup</div>
+      <div class="modal-sub">How was your experience with GreenCycle Solutions?</div>
+      <div class="star-row">
+        <span class="star-btn">⭐</span>
+        <span class="star-btn">⭐</span>
+        <span class="star-btn">⭐</span>
+        <span class="star-btn">⭐</span>
+        <span class="star-btn">⭐</span>
+      </div>
+      <div class="rate-tags">
+        <div class="rate-tag">On Time</div>
+        <div class="rate-tag">Professional</div>
+        <div class="rate-tag">Careful Handling</div>
+        <div class="rate-tag">Fast Process</div>
+        <div class="rate-tag">Good Communication</div>
+        <div class="rate-tag">Cert Issued Quickly</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Additional Comments</label>
+        <textarea class="form-textarea" placeholder="Tell us more about your experience…"></textarea>
+      </div>
+      <button class="btn-primary" onclick="submitReview()">Submit Review</button>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════
+       ONBOARDING
+  ═══════════════════════════════════════════════════════ -->
+  <div class="page" id="page-onboarding">
+    <div class="scroll-full">
+      <div class="onboarding-bg">
+        <div>
+          <div class="ob-logo">♻️</div>
+          <div class="ob-wordmark">E-<span>Basuramo</span></div>
+          <div class="ob-tagline">The smarter way to dispose<br>electronic waste in the Philippines.</div>
+          <div class="ob-features" style="margin-top:28px;">
+            <div class="ob-feature">
+              <div class="ob-feature-icon">🏭</div>
+              <div>
+                <div class="ob-feature-title">EMB-Licensed Collectors</div>
+                <div class="ob-feature-sub">Every collector verified under RA 9003 &amp; RA 6969</div>
+              </div>
+            </div>
+            <div class="ob-feature">
+              <div class="ob-feature-icon">📜</div>
+              <div>
+                <div class="ob-feature-title">Compliance Certificates</div>
+                <div class="ob-feature-sub">Auto-generated RA 9003 PDFs for your records</div>
+              </div>
+            </div>
+            <div class="ob-feature">
+              <div class="ob-feature-icon">🛡️</div>
+              <div>
+                <div class="ob-feature-title">Secure Data Destruction</div>
+                <div class="ob-feature-sub">DoD-standard wipe + RA 10173 destruction report</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ob-actions">
+          <button class="btn-primary" onclick="goToRegister()">Get Started — It's Free</button>
+          <button class="ob-login-btn" onclick="goToLogin()">I already have an account</button>
+          <div class="ob-fine">By continuing you agree to our Terms of Service &amp; Privacy Policy (RA 10173)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════
+       LOGIN
+  ═══════════════════════════════════════════════════════ -->
+  <div class="page" id="page-login">
+    <div class="scroll-full">
+      <div class="auth-header">
+        <span class="auth-back" onclick="showPage('onboarding')">←</span>
+        <div class="auth-title">Welcome back 👋</div>
+        <div class="auth-sub">Log in to schedule pickups, view history, and manage compliance.</div>
+      </div>
+      <div class="auth-body">
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input class="form-input" type="email" placeholder="you@organization.com" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input class="form-input" type="password" placeholder="Enter your password" />
+        </div>
+        <div style="text-align:right;margin-bottom:20px;">
+          <span style="font-size:12px;font-weight:700;color:var(--green);cursor:pointer;">Forgot password?</span>
+        </div>
+        <button class="btn-primary" onclick="submitLogin()">Log In</button>
+        <div class="auth-divider">or</div>
+        <button class="auth-google">🔵 &nbsp;Continue with Google</button>
+        <div class="auth-switch">Don't have an account? <a onclick="showPage('register')">Register here</a></div>
+        <div class="auth-footer">Your data is protected under RA 10173 — Data Privacy Act of 2012.</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════
+       REGISTER
+  ═══════════════════════════════════════════════════════ -->
+  <div class="page" id="page-register">
+    <div class="scroll-full">
+      <div class="auth-header">
+        <span class="auth-back" onclick="showPage('onboarding')">←</span>
+        <div class="auth-title">Create Account</div>
+        <div class="auth-sub">Set up your organization's e-waste management account.</div>
+      </div>
+      <div class="auth-body">
+        <div class="form-group">
+          <label class="form-label">Organization Name</label>
+          <input class="form-input" type="text" placeholder="e.g. De La Salle University" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Organization Type</label>
+          <div class="org-type-grid">
+            <div class="org-type-chip selected">
+              <div class="org-type-icon">🏫</div>
+              <div class="org-type-label">School / University</div>
+            </div>
+            <div class="org-type-chip">
+              <div class="org-type-icon">🏢</div>
+              <div class="org-type-label">Office / SME</div>
+            </div>
+            <div class="org-type-chip">
+              <div class="org-type-icon">🏥</div>
+              <div class="org-type-label">Hospital / Clinic</div>
+            </div>
+            <div class="org-type-chip">
+              <div class="org-type-icon">🏘️</div>
+              <div class="org-type-label">HOA / Community</div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Address</label>
+          <input class="form-input" type="text" placeholder="Full address" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input class="form-input" type="email" placeholder="you@organization.com" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input class="form-input" type="password" placeholder="Create a password" />
+        </div>
+        <div class="info-box" style="margin-bottom:18px;">
+          <div class="info-box-icon">ℹ️</div>
+          <div class="info-box-text">By registering, you confirm that your organization consents to data processing under <strong>RA 10173</strong> and will use the platform in compliance with <strong>RA 9003</strong>.</div>
+        </div>
+        <button class="btn-primary" onclick="submitRegister()">Create Account</button>
+        <div class="auth-divider">or</div>
+        <button class="auth-google">🔵 &nbsp;Sign up with Google</button>
+        <div class="auth-switch">Already have an account? <a onclick="showPage('login')">Log in here</a></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════
+       HOME
+  ═══════════════════════════════════════════════════════ -->
+  <div class="page" id="page-home">
+    <div class="scroll-nav">
+
+      <div class="home-header">
+        <div class="home-header-top">
+          <div>
+            <div class="greeting">Good morning, 👋</div>
+            <div class="user-name">De La Salle Univ.</div>
+          </div>
+          <div class="avatar" onclick="goToNotifications()">D
+            <div class="notif-dot"></div>
+          </div>
+        </div>
+        <div class="location-bar">
+          <div class="loc-dot"></div>
+          <span class="loc-name">Taft Ave., Malate, Manila</span>
+          <span class="loc-chevron">▾</span>
+        </div>
+      </div>
+
+      <div class="hero-banner">
+        <div class="hero-tag">♻️ COLLECTOR NEARBY</div>
+        <div class="hero-title">Dispose E-Waste<br>Responsibly</div>
+        <div class="hero-sub">Connect with EMB-licensed collectors near you. Safe. Traceable. Compliant.</div>
+        <button class="hero-btn" onclick="showPage('schedule')">Schedule Pickup →</button>
+      </div>
+
+      <div class="section-header" style="margin-top:4px;">
+        <span class="section-title">Quick Actions</span>
+      </div>
+      <div class="quick-actions">
+        <div class="qa-item" onclick="showPage('schedule')">
+          <div class="qa-icon green">📦</div>
+          <div class="qa-label">Schedule Pickup</div>
+        </div>
+        <div class="qa-item" onclick="showPage('history')">
+          <div class="qa-icon blue">📋</div>
+          <div class="qa-label">My History</div>
+        </div>
+        <div class="qa-item" onclick="showPage('collectors')">
+          <div class="qa-icon orange">🔍</div>
+          <div class="qa-label">Find Collector</div>
+        </div>
+        <div class="qa-item" onclick="showPage('datawipe')">
+          <div class="qa-icon red">🛡️</div>
+          <div class="qa-label">Data Wipe</div>
+        </div>
+      </div>
+
+      <div class="section-spacer"></div>
+
+      <div style="margin-top:16px;">
+        <div class="section-header">
+          <span class="section-title">Active Pickup</span>
+          <span class="section-link" onclick="showPage('track')">Track →</span>
+        </div>
+        <div class="active-card">
+          <div class="active-card-header">
+            <div class="active-card-id">#EBSR-2024-041</div>
+            <div class="pill pill-yellow">En Route</div>
+          </div>
+          <div class="collector-mini">
+            <div class="collector-mini-avatar">JR</div>
+            <div>
+              <div class="collector-mini-name">Juan Reyes Recycling Co.</div>
+              <div class="collector-mini-sub">EMB Accredited · 3 items</div>
+            </div>
+            <div class="collector-mini-rating">⭐ 4.8</div>
+          </div>
+          <div class="progress-track"><div class="progress-fill"></div></div>
+          <div class="progress-labels">
+            <span>Confirmed</span>
+            <span class="active-step">En Route</span>
+            <span>Picked Up</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="emb-strip">
+        <div class="emb-badge">EMB</div>
+        <div class="emb-text"><strong>All collectors verified</strong> under RA 9003 &amp; RA 6969 compliance standards</div>
+      </div>
+
+      <!-- In-App Ad -->
+      <div class="ad-banner">
+        <div class="ad-icon">🖥️</div>
+        <div style="flex:1;">
+          <div class="ad-label">Sponsored</div>
+          <div class="ad-text">Trade in your old tech</div>
+          <div class="ad-sub">GadgetZone Manila — Eco Trade-In Program</div>
+        </div>
+        <span style="font-size:10px;color:var(--text-muted);font-weight:700;">›</span>
+      </div>
+
+      <div class="section-header">
+        <span class="section-title">Your Impact</span>
+        <span class="section-link" onclick="showPage('analytics')">Full Report →</span>
+      </div>
+      <div class="stats-row">
+        <div class="stat-card" onclick="showPage('analytics')">
+          <div class="stat-num green">24</div>
+          <div class="stat-label">Pickups Done</div>
+        </div>
+        <div class="stat-card" onclick="showPage('analytics')">
+          <div class="stat-num">186<span style="font-size:11px">kg</span></div>
+          <div class="stat-label">E-Waste Diverted</div>
+        </div>
+        <div class="stat-card" onclick="showPage('analytics')">
+          <div class="stat-num green">12</div>
+          <div class="stat-label">Certificates</div>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <span class="section-title">Nearby Collectors</span>
+        <span class="section-link" onclick="showPage('collectors')">See all</span>
+      </div>
+      <div style="padding:0 20px;">
+        <div class="collector-card" onclick="viewCollector('GreenCycle Solutions')">
+          <div class="cc-avatar">🏭</div>
+          <div class="cc-info">
+            <div class="cc-name">GreenCycle Solutions</div>
+            <div class="cc-details">Computers · Phones · Printers</div>
+            <div class="cc-badge">EMB ACCREDITED</div>
+          </div>
+          <div class="cc-right">
+            <div class="cc-distance">1.2 km</div>
+            <div class="cc-rating">⭐ 4.9</div>
+            <div class="cc-avail open">● Open</div>
+          </div>
+        </div>
+        <div class="collector-card" onclick="viewCollector('EcoTech Manila')">
+          <div class="cc-avatar">♻️</div>
+          <div class="cc-info">
+            <div class="cc-name">EcoTech Manila</div>
+            <div class="cc-details">All Electronics · Data Wipe</div>
+            <div class="cc-badge">EMB ACCREDITED</div>
+          </div>
+          <div class="cc-right">
+            <div class="cc-distance">2.8 km</div>
+            <div class="cc-rating">⭐ 4.7</div>
+            <div class="cc-avail open">● Open</div>
+          </div>
+        </div>
+      </div>
+      <div style="height:20px;"></div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════
+       SCHEDULE PICKUP
+  ═══════════════════════════════════════════════════════ -->
+  <div class="page" id="page-schedule">
+    <div class="page-header">
+      <button class="back-btn" onclick="showPage('home')">←</button>
+      <div class="page-header-title">Schedule Pickup</div>
+    </div>
+    <div class="scroll-inner">
+      <div class="schedule-body">
+
+        <div class="form-group">
+          <label class="form-label">What are you disposing?</label>
+          <div class="waste-grid">
+            <div class="waste-chip selected" onclick="toggleChip(this)"><span class="waste-chip-icon">💻</span> Computers</div>
+            <div class="waste-chip" onclick="toggleChip(this)"><span class="waste-chip-icon">📱</span> Phones</div>
+            <div class="waste-chip selected" onclick="toggleChip(this)"><span class="waste-chip-icon">🖨️</span> Printers</div>
+            <div class="waste-chip" onclick="toggleChip(this)"><span class="waste-chip-icon">🔋</span> Batteries</div>
+            <div class="waste-chip" onclick="toggleChip(this)"><span class="waste-chip-icon">📺</span> Monitors</div>
+            <div class="waste-chip" onclick="toggleChip(this)"><span class="waste-chip-icon">🔌</span> Cables</div>
+            <div class="waste-chip" onclick="toggleChip(this)"><span class="waste-chip-icon">🖱️</span> Peripherals</div>
+            <div class="waste-chip" onclick="toggleChip(this)"><span class="waste-chip-icon">💾</span> Storage Drives</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Estimated Quantity</label>
+          <select class="form-select">
+            <option>1–5 items (Small batch)</option>
+            <option>6–20 items (Medium batch)</option>
+            <option>21–50 items (Large batch)</option>
+            <option>50+ items (Enterprise)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Matched Collector</label>
+          <div class="match-card">
+            <div class="match-avatar">🏭</div>
+            <div class="match-info">
+              <div class="match-name">GreenCycle Solutions</div>
+              <div class="match-sub">EMB Accredited · 1.2 km · Available Apr 8</div>
+              <div class="match-rating">⭐ 4.9</div>
+            </div>
+            <span style="font-size:11px;font-weight:700;color:var(--green);cursor:pointer;" onclick="showPage('collectors')">Change</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Pickup Date</label>
+          <div class="date-row">
+            <div class="date-slot"><div class="date-day">MON</div><div class="date-num">7</div></div>
+            <div class="date-slot selected"><div class="date-day">TUE</div><div class="date-num">8</div></div>
+            <div class="date-slot"><div class="date-day">WED</div><div class="date-num">9</div></div>
+            <div class="date-slot"><div class="date-day">THU</div><div class="date-num">10</div></div>
+            <div class="date-slot"><div class="date-day">FRI</div><div class="date-num">11</div></div>
+            <div class="date-slot"><div class="date-day">SAT</div><div class="date-num">12</div></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Preferred Time</label>
+          <div class="time-row">
+            <div class="time-slot">8–10 AM</div>
+            <div class="time-slot selected">10 AM–12 PM</div>
+            <div class="time-slot">1–3 PM</div>
+            <div class="time-slot">3–5 PM</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Pickup Address</label>
+          <input class="form-input" type="text" value="2401 Taft Ave, Malate, Manila" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Add-on Services</label>
+          <select class="form-select">
+            <option>None — Basic Pickup (Free)</option>
+            <option>Secure Data Destruction (+₱299)</option>
+            <option>RA 9003 Compliance Certificate (+₱199)</option>
+            <option>Both Services (+₱449)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Additional Notes</label>
+          <input class="form-input" type="text" placeholder="e.g. Call before arrival, 2nd floor office…" />
+        </div>
+
+        <div class="form-group">
+          <div class="info-box">
+            <div class="info-box-icon">ℹ️</div>
+            <div class="info-box-text">Basic pickup is <strong>FREE</strong>. Collector sets the service rate. E-Basuramo retains a <strong>10% platform fee</strong> per completed pickup.</div>
+          </div>
+        </div>
+
+        <button class="btn-primary" onclick="schedulePickup()">Confirm Pickup Request</button>
+        <div style="height:20px;"></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════
+       TRACK PICKUP
+  ═══════════════════════════════════════════════════════ -->
+  <div class="page" id="page-track">
+    <div class="page-header">
+      <button class="back-btn" onclick="showPage('home')">←</button>
+      <div class="page-header-title">Track Pickup</div>
+      <span class="page-header-action" onclick="contactCollector()">📞 Call</span>
+    </div>
+    <div class="scroll-sub">
+
+      <!-- Live map simulation -->
+      <div class="track-map">
+        <div class="track-map-grid"></div>
+        <div class="track-origin">🏫</div>
+        <div class="track-dest">🚚</div>
+        <div class="track-map-pulse"><div class="track-map-dot"></div></div>
+        <div class="track-map-label">Collector is 1.8 km away</div>
+      </div>
+
+      <div class="track-body">
+
+        <!-- ETA card -->
+        <div class="eta-card">
+          <div class="eta-icon">🚚</div>
+          <div>
+            <div class="eta-label">Estimated Arrival</div>
+            <div class="eta-time">~25 minutes</div>
+            <div class="eta-sub">Juan Reyes Recycling Co.</div>
+          </div>
+        </div>
+
+        <!-- Status timeline -->
+        <div class="cd-section" style="margin-bottom:12px;">Pickup Timeline</div>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-left">
+              <div class="tl-dot done">✓</div>
+              <div class="tl-line done"></div>
+            </div>
+            <div class="tl-content">
+              <div class="tl-title">Request Submitted</div>
+              <div class="tl-sub">Your pickup request was received by E-Basuramo.</div>
+              <div class="tl-time">Apr 7, 2026 · 3:12 PM</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-left">
+              <div class="tl-dot done">✓</div>
+              <div class="tl-line done"></div>
+            </div>
+            <div class="tl-content">
+              <div class="tl-title">Collector Confirmed</div>
+              <div class="tl-sub">Juan Reyes Recycling Co. accepted your request and will arrive Apr 8, 10 AM–12 PM.</div>
+              <div class="tl-time">Apr 7, 2026 · 4:30 PM</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-left">
+              <div class="tl-dot active">🚚</div>
+              <div class="tl-line"></div>
+            </div>
+            <div class="tl-content">
+              <div class="tl-title">Collector En Route</div>
+              <div class="tl-sub">Your collector departed from Caloocan City and is heading to your location.</div>
+              <div class="tl-time">Apr 8, 2026 · 9:41 AM · Now</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-left">
+              <div class="tl-dot">4</div>
+              <div class="tl-line"></div>
+            </div>
+            <div class="tl-content">
+              <div class="tl-title tl-title muted">Items Picked Up</div>
+              <div class="tl-sub" style="color:var(--text-muted);">Collector verifies and loads your e-waste.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-left">
+              <div class="tl-dot">5</div>
+            </div>
+            <div class="tl-content">
+              <div class="tl-title tl-title muted">Certificate Issued</div>
+              <div class="tl-sub" style="color:var(--text-muted);">RA 9003 compliance certificate emailed to you.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Collector info -->
+        <div class="cd-section" style="margin-bottom:10px;">Collector Details</div>
+        <div class="cd-info-card" style="margin-bottom:16px;">
+          <div class="cd-info-row">
+            <div class="cd-info-icon">🔄</div>
+            <div>
+              <div class="cd-info-key">Collector</div>
+              <div class="cd-info-val">Juan Reyes Recycling Co.</div>
+            </div>
+          </div>
+          <div class="cd-info-row">
+            <div class="cd-info-icon">📋</div>
+            <div>
+              <div class="cd-info-key">Pickup ID</div>
+              <div class="cd-info-val">#EBSR-2024-041</div>
+            </div>
+          </div>
+          <div class="cd-info-row">
+            <div class="cd-info-icon">📦</div>
+            <div>
+              <div class="cd-info-key">Items</div>
+              <div class="cd-info-val">2 Desktops · 2 Printers</div>
+            </div>
+          </div>
+          <div class="cd-info-row">
+            <div class="cd-info-icon">🕐</div>
+            <div>
+              <div class="cd-info-key">Scheduled Window</div>
+              <div class="cd-info-val">Apr 8, 2026 · 10:00 AM – 12:00 PM</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="height:16px;"></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════
+       PICKUP HISTORY
+  ═══════════════════════════════════════════════════════ -->
+  <div class="page" id="page-history">
+    <div class="page-header">
+      <button class="back-btn" onclick="showPage('home')">←</button>
+      <div class="page-header-title">Pickup History</div>
+      <span class="page-header-action" onclick="downloadCert()">Export</span>
+    </div>
+    <div class="scroll-inner">
+
+      <div class="filter-tabs">
+        <button class="filter-tab active" onclick="filterTab(this)">All</button>
+        <button class="filter-tab" onclick="filterTab(this)">Completed</button>
+        <button class="filter-tab" onclick="filterTab(this)">En Route</button>
+        <button class="filter-tab" onclick="filterTab(this)">Cancelled</button>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-header">
+          <div class="cert-icon">📜</div>
+          <div>
+            <div class="cert-title">Latest Compliance Certificate</div>
+            <div class="cert-sub">RA 9003 — Eco Solid Waste Management Act</div>
+          </div>
+        </div>
+        <div class="cert-row"><span class="cert-key">Cert No.</span><span class="cert-val">RA9003-2024-0038</span></div>
+        <div class="cert-row"><span class="cert-key">Waste Handled</span><span class="cert-val">12 units · 48 kg</span></div>
+        <div class="cert-row"><span class="cert-key">Collector</span><span class="cert-val">GreenCycle Solutions</span></div>
+        <div class="cert-footer">
+          <div class="cert-verified">✓ EMB VERIFIED</div>
+          <div class="cert-dl" onclick="downloadCert()">Download PDF →</div>
+        </div>
+      </div>
+
+      <div class="history-list">
+
+        <div class="history-card" onclick="openPickupDetail('completed')">
+          <div class="hc-top">
+            <div>
+              <div class="hc-id">#EBSR-2024-038</div>
+              <div class="hc-date">Mar 28, 2026</div>
+            </div>
+            <div class="pill pill-green">Completed</div>
+          </div>
+          <div class="hc-items">
+            <div class="hc-tag">💻 3 Laptops</div>
+            <div class="hc-tag">🖨️ 1 Printer</div>
+            <div class="hc-tag">📱 8 Phones</div>
+          </div>
+          <div class="hc-divider"></div>
+          <div class="hc-bottom">
+            <div class="hc-collector">By <strong>GreenCycle Solutions</strong></div>
+            <button class="hc-cert-btn" onclick="event.stopPropagation();downloadCert()">📜 View Cert</button>
+          </div>
+        </div>
+
+        <div class="history-card" onclick="openPickupDetail('pending')">
+          <div class="hc-top">
+            <div>
+              <div class="hc-id">#EBSR-2024-041</div>
+              <div class="hc-date">Apr 8, 2026 · 10–12 PM</div>
+            </div>
+            <div class="pill pill-yellow">En Route</div>
+          </div>
+          <div class="hc-items">
+            <div class="hc-tag">💻 2 Desktops</div>
+            <div class="hc-tag">🖨️ 2 Printers</div>
+          </div>
+          <div class="hc-divider"></div>
+          <div class="hc-bottom">
+            <div class="hc-collector">By <strong>Juan Reyes Recycling</strong></div>
+            <span class="hc-rate-btn" onclick="event.stopPropagation();showPage('track')">Track →</span>
+          </div>
+        </div>
+
+        <div class="history-card" onclick="openPickupDetail('completed')">
+          <div class="hc-top">
+            <div>
+              <div class="hc-id">#EBSR-2024-029</div>
+              <div class="hc-date">Feb 14, 2026</div>
+            </div>
+            <div class="pill pill-green">Completed</div>
+          </div>
+          <div class="hc-items">
+            <div class="hc-tag">📺 2 Monitors</div>
+            <div class="hc-tag">🔋 12 Batteries</div>
+            <div class="hc-tag">🔌 Cables</div>
+          </div>
+          <div class="hc-divider"></div>
+          <div class="hc-bottom">
+            <div class="hc-collector">By <strong>EcoTech Manila</strong></div>
+            <span class="hc-rate-btn" onclick="event.stopPropagation();openReviewModal()">⭐ Rate</span>
+          </div>
+        </div>
+
+        <div class="history-card" onclick="openPickupDetail('cancelled')">
+          <div class="hc-top">
+            <div>
+              <div class="hc-id">#EBSR-2024-017</div>
+              <div class="hc-date">Jan 5, 2026</div>
+            </div>
+            <div class="pill pill-red">Cancelled</div>
+          </div>
+          <div class="hc-items">
+            <div class="hc-tag">💻 1 Laptop</div>
+          </div>
+          <div class="hc-divider"></div>
+          <div class="hc-bottom">
+            <div class="hc-collector" style="color:var(--text-muted)">No collector assigned</div>
+            <span style="font-size:11px;font-weight:700;color:var(--red);cursor:pointer;" onclick="event.stopPropagation();showPage('schedule')">Reschedule →</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════
+       PICKUP DETAIL
+  ═══════════════════════════════════════════════════════ -->
+  <div class="page" id="page-pickup-detail">
+    <div class="page-header">
+      <button class="back-btn" onclick="showPage('history')">←</button>
+      <div class="page-header-title">Pickup #EBSR-2024-038</div>
+    </div>
+    <div class="scroll-sub">
+
+      <div class="pd-status-banner completed" id="pd-status-banner">
+        <div class="pd-status-icon" id="pd-icon">✅</div>
+        <div>
+          <div class="pd-status-title" id="pd-title">Pickup Completed</div>
+          <div class="pd-status-sub" id="pd-sub">Your e-waste was successfully collected and disposed.</div>
+        </div>
+      </div>
+
+      <div class="pd-body">
+
+        <div class="pd-section">Pickup Details</div>
+        <div class="pd-card">
+          <div class="pd-row"><span class="pd-key">Pickup ID</span><span class="pd-val">#EBSR-2024-038</span></div>
+          <div class="pd-row"><span class="pd-key">Date &amp; Time</span><span class="pd-val">Mar 28, 2026 · 10:00 AM</span></div>
+          <div class="pd-row"><span class="pd-key">Address</span><span class="pd-val">2401 Taft Ave, Malate, Manila</span></div>
+          <div class="pd-row"><span class="pd-key">Add-on</span><span class="pd-val">RA 9003 Certificate (+₱199)</span></div>
+        </div>
+
+        <div class="pd-section">Items Collected</div>
+        <div class="pd-card">
+          <div class="pd-row"><span class="pd-key">💻 Laptops</span><span class="pd-val">3 units</span></div>
+          <div class="pd-row"><span class="pd-key">🖨️ Printers</span><span class="pd-val">1 unit</span></div>
+          <div class="pd-row"><span class="pd-key">📱 Phones</span><span class="pd-val">8 units</span></div>
+          <div class="pd-row"><span class="pd-key">Total Weight (est.)</span><span class="pd-val">48 kg</span></div>
+        </div>
+
+        <div class="pd-section">Collector</div>
+        <div class="pd-card">
+          <div class="pd-row"><span class="pd-key">Name</span><span class="pd-val">GreenCycle Solutions</span></div>
+          <div class="pd-row"><span class="pd-key">Accreditation</span><span class="pd-val">EMB-NCR-2022-0041</span></div>
+          <div class="pd-row"><span class="pd-key">Your Rating</span><span class="pd-val">⭐⭐⭐⭐⭐</span></div>
+        </div>
+
+        <div class="pd-section">Compliance</div>
+        <div class="pd-card">
+          <div class="pd-row"><span class="pd-key">Certificate No.</span><span class="pd-val">RA9003-2024-0038</span></div>
+          <div class="pd-row"><span class="pd-key">Issued</span><span class="pd-val">Mar 28, 2026</span></div>
+          <div class="pd-row"><span class="pd-key">Status</span><span class="pd-val"><span class="pill pill-green">Verified</span></span></div>
+        </div>
+
+        <button class="btn-primary" style="margin-top:4px;" onclick="downloadCert()">📜 Download RA 9003 Certificate</button>
+        <div style="margin-top:10px;">
+          <button class="btn-outline" onclick="openReviewModal()">⭐ Rate This Pickup</button>
+        </div>
+        <div style="height:20px;"></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════
+       FIND COLLECTORS
+  ═══════════════════════════════════════════════════════ -->
+  <div class="page" id="page-collectors">
+    <div class="page-header">
+      <button class="back-btn" onclick="showPage('home')">←</button>
+      <div class="page-header-title">Find Collectors</div>
+      <span class="page-header-action">Map View</span>
+    </div>
+    <div class="scroll-inner">
+
+      <div class="search-wrap">
+        <div class="search-bar">
+          <span class="search-icon">🔍</span>
+          <input type="text" placeholder="Search by name or waste type…" />
+        </div>
+      </div>
+
+      <div class="chip-row">
+        <div class="chip active" onclick="filterCollectors(this)">All</div>
+        <div class="chip" onclick="filterCollectors(this)">Computers</div>
+        <div class="chip" onclick="filterCollectors(this)">Phones</div>
+        <div class="chip" onclick="filterCollectors(this)">Batteries</div>
+        <div class="chip" onclick="filterCollectors(this)">Data Wipe</div>
+        <div class="chip" onclick="filterCollectors(this)">Printers</div>
+        <div class="chip" onclick="filterCollectors(this)">Monitors</div>
+      </div>
+
+      <div class="clist-wrap">
+        <div style="padding-bottom:10px;">
+          <div class="emb-strip" style="margin:0 0 14px;">
+            <div class="emb-badge">EMB</div>
+            <div class="emb-text"><strong>All listed collectors</strong> hold valid EMB accreditation under RA 9003 &amp; RA 6969</div>
+          </div>
+        </div>
+
+        <div class="collector-card" onclick="viewCollector('GreenCycle Solutions')">
+          <div class="cc-avatar">🏭</div>
+          <div class="cc-info">
+            <div class="cc-name">GreenCycle Solutions</div>
+            <div class="cc-details">Computers · Phones · Printers · Data Wipe</div>
+            <div class="cc-badge">EMB ACCREDITED</div>
+          </div>
+          <div class="cc-right">
+            <div class="cc-distance">1.2 km</div>
+            <div class="cc-rating">⭐ 4.9</div>
+            <div class="cc-avail open">● Open</div>
+          </div>
+        </div>
+
+        <div class="collector-card" onclick="viewCollector('EcoTech Manila')">
+          <div class="cc-avatar">♻️</div>
+          <div class="cc-info">
+            <div class="cc-name">EcoTech Manila</div>
+            <div class="cc-details">All Electronics · Data Wipe Service</div>
+            <div class="cc-badge">EMB ACCREDITED</div>
+          </div>
+          <div class="cc-right">
+            <div class="cc-distance">2.8 km</div>
+            <div class="cc-rating">⭐ 4.7</div>
+            <div class="cc-avail open">● Open</div>
+          </div>
+        </div>
+
+        <div class="collector-card" onclick="viewCollector('Recharge PH Inc.')">
+          <div class="cc-avatar">🔋</div>
+          <div class="cc-info">
+            <div class="cc-name">Recharge PH Inc.</div>
+            <div class="cc-details">Batteries · Cables · Circuit Boards</div>
+            <div class="cc-badge">EMB ACCREDITED</div>
+          </div>
+          <div class="cc-right">
+            <div class="cc-distance">3.5 km</div>
+            <div class="cc-rating">⭐ 4.6</div>
+            <div class="cc-avail busy">● Busy</div>
+          </div>
+        </div>
+
+        <div class="collector-card" onclick="viewCollector('Juan Reyes Recycling Co.')">
+          <div class="cc-avatar">🔄</div>
+          <div class="cc-info">
+            <div class="cc-name">Juan Reyes Recycling Co.</div>
+            <div class="cc-details">Computers · Peripherals · Office Equipment</div>
+            <div class="cc-badge">EMB ACCREDITED</div>
+          </div>
+          <div class="cc-right">
+            <div class="cc-distance">4.1 km</div>
+            <div class="cc-rating">⭐ 4.8</div>
+            <div class="cc-avail open">● Open</div>
+          </div>
+        </div>
+
+        <div class="collector-card" onclick="viewCollector('Metro E-Cycle Hub')">
+          <div class="cc-avatar">🌿</div>
+          <div class="cc-info">
+            <div class="cc-name">Metro E-Cycle Hub</div>
+            <div class="cc-details">Phones · Tablets · Smart Devices</div>
+            <div class="cc-badge">EMB ACCREDITED</div>
+          </div>
+          <div class="cc-right">
+            <div class="cc-distance">5.0 km</div>
+            <div class="cc-rating">⭐ 4.5</div>
+            <div class="cc-avail open">● Open</div>
+          </div>
+        </div>
+
+        <div style="height:16px;"></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════
+       COLLECTOR DETAIL
+  ═══════════════════════════════════════════════════════ -->
+  <div class="page" id="page-collector-detail">
+    <div class="page-header">
+      <button class="back-btn" onclick="showPage('collectors')">←</button>
+      <div class="page-header-title">Collector Profile</div>
+    </div>
+    <div class="scroll-sub-cta">
+
+      <div class="cd-hero">
+        <div class="cd-top">
+          <div class="cd-avatar" id="cd-avatar">🏭</div>
+          <div>
+            <div class="cd-name" id="cd-name">GreenCycle Solutions</div>
+            <div class="cd-sub" id="cd-sub">Tondo, Manila · 1.2 km</div>
+          </div>
+        </div>
+        <div class="cd-tags" id="cd-tags">
+          <div class="cd-tag">✓ EMB Accredited</div>
+          <div class="cd-tag">✓ RA 9003</div>
+          <div class="cd-tag">✓ Data Wipe</div>
+          <div class="cd-tag">✓ ISO Certified</div>
+        </div>
+      </div>
+
+      <div class="cd-stats">
+        <div class="cd-stat">
+          <div class="cd-stat-num green" id="cd-rating">4.9</div>
+          <div class="cd-stat-label">Rating</div>
+        </div>
+        <div class="cd-stat">
+          <div class="cd-stat-num" id="cd-pickups">312</div>
+          <div class="cd-stat-label">Pickups</div>
+        </div>
+        <div class="cd-stat">
+          <div class="cd-stat-num green" id="cd-completion">98%</div>
+          <div class="cd-stat-label">Completion</div>
+        </div>
+      </div>
+
+      <div class="cd-body">
+        <div class="cd-section">Collector Info</div>
+        <div class="cd-info-card">
+          <div class="cd-info-row">
+            <div class="cd-info-icon">📍</div>
+            <div><div class="cd-info-key">Location</div><div class="cd-info-val" id="cd-loc">Tondo, Manila · 1.2 km away</div></div>
+          </div>
+          <div class="cd-info-row">
+            <div class="cd-info-icon">🕐</div>
+            <div><div class="cd-info-key">Operating Hours</div><div class="cd-info-val" id="cd-hours">Mon–Sat · 8:00 AM – 5:00 PM</div></div>
+          </div>
+          <div class="cd-info-row">
+            <div class="cd-info-icon">📋</div>
+            <div><div class="cd-info-key">EMB Accreditation No.</div><div class="cd-info-val" id="cd-accred">EMB-NCR-2022-0041</div></div>
+          </div>
+          <div class="cd-info-row">
+            <div class="cd-info-icon">💳</div>
+            <div><div class="cd-info-key">Payment</div><div class="cd-info-val" id="cd-pays">GCash · Maya · Cash</div></div>
+          </div>
+        </div>
+
+        <div class="cd-section">Accepted Waste Types</div>
+        <div class="cd-waste-grid">
+          <div class="cd-waste-item">💻 Computers</div>
+          <div class="cd-waste-item">📱 Phones</div>
+          <div class="cd-waste-item">🖨️ Printers</div>
+          <div class="cd-waste-item">📺 Monitors</div>
+          <div class="cd-waste-item">🖱️ Peripherals</div>
+          <div class="cd-waste-item">🛡️ Data Wipe</div>
+        </div>
+
+        <div class="cd-section">Recent Reviews</div>
+        <div class="cd-review">
+          <div class="cd-review-top">
+            <div class="cd-reviewer">Ateneo de Manila Univ.</div>
+            <div class="cd-review-stars">⭐⭐⭐⭐⭐</div>
+          </div>
+          <div class="cd-review-date">Mar 15, 2026</div>
+          <div class="cd-review-text">Very professional. Arrived on time, handled everything carefully, and issued the RA 9003 certificate the same day.</div>
+        </div>
+        <div class="cd-review">
+          <div class="cd-review-top">
+            <div class="cd-reviewer">BDO Unibank IT Dept.</div>
+            <div class="cd-review-stars">⭐⭐⭐⭐⭐</div>
+          </div>
+          <div class="cd-review-date">Feb 28, 2026</div>
+          <div class="cd-review-text">Handled 40+ units seamlessly. Secure data destruction certificate was thorough and well-documented.</div>
+        </div>
+        <div class="cd-review">
+          <div class="cd-review-top">
+            <div class="cd-reviewer">St. Scholastica's College</div>
+            <div class="cd-review-stars">⭐⭐⭐⭐</div>
+          </div>
+          <div class="cd-review-date">Jan 10, 2026</div>
+          <div class="cd-review-text">Responsive and compliant. Minor delay due to traffic but communicated proactively throughout.</div>
+        </div>
+        <div style="height:16px;"></div>
+      </div>
+    </div>
+    <div class="sticky-cta">
+      <button class="btn-primary" onclick="scheduleWithCollector()">📦 Schedule Pickup</button>
+      <div class="icon-btn" onclick="contactCollector()">📞</div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════
+       PROFILE
+  ═══════════════════════════════════════════════════════ -->
+  <div class="page" id="page-profile">
+    <div class="scroll-nav">
+
+      <div class="profile-hero">
+        <div class="profile-avatar-wrap">
+          <div class="profile-av">D</div>
+          <div class="profile-edit" onclick="goToOrgDetails()">✏️</div>
+        </div>
+        <div class="profile-name">De La Salle University</div>
+        <div class="profile-org">School · Malate, Manila</div>
+        <div class="profile-badge">♻️ Eco Partner · PRO</div>
+      </div>
+
+      <div class="profile-stats">
+        <div class="ps-item" onclick="showPage('history')">
+          <div class="ps-num">24</div><div class="ps-label">Pickups</div>
+        </div>
+        <div class="ps-item" onclick="showPage('analytics')">
+          <div class="ps-num">186kg</div><div class="ps-label">Diverted</div>
+        </div>
+        <div class="ps-item" onclick="downloadCert()">
+          <div class="ps-num">12</div><div class="ps-label">Certificates</div>
+        </div>
+      </div>
+
+      <div class="profile-body">
+
+        <div class="sub-card" onclick="goToPlans()">
+          <div class="sub-card-label">CURRENT PLAN</div>
+          <div class="sub-card-plan">SME Pro · ₱299/mo</div>
+          <div class="sub-card-perks">Priority listings · Analytics · RA 9003 exports</div>
+          <div class="sub-card-renew">Renews Apr 30, 2026 · Manage Plan →</div>
+        </div>
+
+        <div class="menu-section-title">Account</div>
+        <div class="menu-group">
+          <div class="menu-item" onclick="goToOrgDetails()">
+            <div class="menu-icon mi-blue">🏢</div>
+            <div class="menu-text"><div class="menu-label">Organization Details</div><div class="menu-sub">Edit name, address, contact info</div></div>
+            <div class="menu-arrow">›</div>
+          </div>
+          <div class="menu-item" onclick="downloadCert()">
+            <div class="menu-icon mi-green">📋</div>
+            <div class="menu-text"><div class="menu-label">Compliance Documents</div><div class="menu-sub">Download RA 9003 certificates</div></div>
+            <div class="menu-arrow">›</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-icon mi-orange">💳</div>
+            <div class="menu-text"><div class="menu-label">Payment Methods</div><div class="menu-sub">GCash · Maya · Credit Card</div></div>
+            <div class="menu-arrow">›</div>
+          </div>
+          <div class="menu-item" onclick="goToPlans()">
+            <div class="menu-icon mi-purple">🌟</div>
+            <div class="menu-text"><div class="menu-label">Subscription Plans</div><div class="menu-sub">View or upgrade your plan</div></div>
+            <div class="menu-arrow">›</div>
+          </div>
+        </div>
+
+        <div class="menu-section-title">Analytics</div>
+        <div class="menu-group">
+          <div class="menu-item" onclick="goToAnalytics()">
+            <div class="menu-icon mi-green">📊</div>
+            <div class="menu-text"><div class="menu-label">Impact Analytics</div><div class="menu-sub">E-waste diverted, pickups, CO₂ saved</div></div>
+            <div class="menu-arrow">›</div>
+          </div>
+        </div>
+
+        <div class="menu-section-title">Data &amp; Privacy</div>
+        <div class="menu-group">
+          <div class="menu-item">
+            <div class="menu-icon mi-blue">🔒</div>
+            <div class="menu-text"><div class="menu-label">Privacy Settings</div><div class="menu-sub">Manage data under RA 10173</div></div>
+            <div class="menu-arrow">›</div>
+          </div>
+          <div class="menu-item" onclick="goToDataWipe()">
+            <div class="menu-icon mi-red">🛡️</div>
+            <div class="menu-text"><div class="menu-label">Secure Data Destruction</div><div class="menu-sub">Request certified device wipe</div></div>
+            <div class="menu-arrow">›</div>
+          </div>
+        </div>
+
+        <div class="menu-section-title">Support</div>
+        <div class="menu-group">
+          <div class="menu-item" onclick="goToNotifications()">
+            <div class="menu-icon mi-blue">🔔</div>
+            <div class="menu-text"><div class="menu-label">Notifications</div><div class="menu-sub">Pickup updates, alerts &amp; news</div></div>
+            <div class="menu-count">3</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-icon mi-orange">💬</div>
+            <div class="menu-text"><div class="menu-label">Help Center</div><div class="menu-sub">FAQs and support tickets</div></div>
+            <div class="menu-arrow">›</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-icon mi-red">🚨</div>
+            <div class="menu-text"><div class="menu-label">Report an Issue</div><div class="menu-sub">Missed pickup · Improper disposal</div></div>
+            <div class="menu-arrow">›</div>
+          </div>
+        </div>
+
+        <div style="text-align:center;padding:16px 0 8px;">
+          <div style="font-size:12px;font-weight:700;color:var(--red);cursor:pointer;" onclick="signOut()">Sign Out</div>
+          <div style="font-size:10px;color:var(--text-muted);margin-top:6px;font-family:'DM Sans',sans-serif;">E-Basuramo v2.0 · E-Basureros · DLSU Manila</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════
+       SUBSCRIPTION PLANS
+  ═══════════════════════════════════════════════════════ -->
+  <div class="page" id="page-plans">
+    <div class="page-header">
+      <button class="back-btn" onclick="showPage('profile')">←</button>
+      <div class="page-header-title">Choose a Plan</div>
+    </div>
+    <div class="scroll-sub">
+      <div class="plans-intro">
+        <div class="plans-intro-title">Upgrade Your E-Waste Program</div>
+        <div class="plans-intro-sub">Basic pickup scheduling is always free. Upgrade for priority access, compliance exports, and analytics.</div>
+      </div>
+      <div class="plans-body">
+
+        <div class="plan-card">
+          <div class="plan-name">Basic (Free)</div>
+          <div class="plan-for">Individual SMEs &amp; first-time users</div>
+          <div class="plan-price">₱0 <span>/ month</span></div>
+          <div class="plan-note">Always free — no credit card required</div>
+          <div class="plan-divider"></div>
+          <div class="plan-feats">
+            <div class="plan-feat"><span class="feat-check">✓</span> Schedule e-waste pickups</div>
+            <div class="plan-feat"><span class="feat-check">✓</span> Access EMB-licensed collectors</div>
+            <div class="plan-feat"><span class="feat-check">✓</span> Pickup history &amp; status tracking</div>
+            <div class="plan-feat muted"><span class="feat-cross">✗</span> RA 9003 certificate exports</div>
+            <div class="plan-feat muted"><span class="feat-cross">✗</span> Priority collector matching</div>
+            <div class="plan-feat muted"><span class="feat-cross">✗</span> Impact analytics dashboard</div>
+          </div>
+          <button class="plan-cta" style="color:var(--green);border-color:var(--green);">Current Plan</button>
+        </div>
+
+        <div class="plan-card recommended">
+          <div class="plan-rec-badge">⭐ MOST POPULAR</div>
+          <div class="plan-name">SME Pro</div>
+          <div class="plan-for">Growing offices, schools &amp; SMEs</div>
+          <div class="plan-price">₱299 <span>/ month</span></div>
+          <div class="plan-note">or ₱2,990/year — save 2 months free</div>
+          <div class="plan-divider"></div>
+          <div class="plan-feats">
+            <div class="plan-feat"><span class="feat-check">✓</span> Everything in Basic</div>
+            <div class="plan-feat"><span class="feat-check">✓</span> Priority collector matching</div>
+            <div class="plan-feat"><span class="feat-check">✓</span> RA 9003 certificate exports (PDF)</div>
+            <div class="plan-feat"><span class="feat-check">✓</span> Monthly impact analytics</div>
+            <div class="plan-feat"><span class="feat-check">✓</span> Dedicated in-app support</div>
+          </div>
+          <button class="plan-cta" onclick="selectPlan('SME Pro')">Get SME Pro →</button>
+        </div>
+
+        <div class="plan-card">
+          <div class="plan-name">Enterprise / HOA</div>
+          <div class="plan-for">Large institutions, hospitals &amp; HOAs</div>
+          <div class="plan-price">₱499 <span>/ month</span></div>
+          <div class="plan-note">Custom billing available for 10+ locations</div>
+          <div class="plan-divider"></div>
+          <div class="plan-feats">
+            <div class="plan-feat"><span class="feat-check">✓</span> Everything in SME Pro</div>
+            <div class="plan-feat"><span class="feat-check">✓</span> Community e-waste drives</div>
+            <div class="plan-feat"><span class="feat-check">✓</span> Dedicated collector assignment</div>
+            <div class="plan-feat"><span class="feat-check">✓</span> ESG &amp; CSR report exports</div>
+            <div class="plan-feat"><span class="feat-check">✓</span> White-glove onboarding</div>
+          </div>
+          <button class="plan-cta" onclick="selectPlan('Enterprise')">Get Enterprise →</button>
+        </div>
+
+      </div>
+      <div class="plans-note">
+        All plans include EMB-licensed collector access. Cancel or downgrade anytime.<br>
+        Payments via GCash, Maya, or Credit Card. Secured under RA 10173.
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════
+       NOTIFICATIONS
+  ═══════════════════════════════════════════════════════ -->
+  <div class="page" id="page-notifications">
+    <div class="page-header">
+      <button class="back-btn" onclick="showPage('profile')">←</button>
+      <div class="page-header-title">Notifications</div>
+      <span class="page-header-action">Mark all read</span>
+    </div>
+    <div class="scroll-sub">
+      <div class="notif-group-label">Today</div>
+      <div class="notif-list">
+        <div class="notif-item unread">
+          <div class="notif-icon orange">📦</div>
+          <div class="notif-body">
+            <div class="notif-title">Collector En Route</div>
+            <div class="notif-text">Juan Reyes Recycling Co. is heading to your location for pickup #EBSR-2024-041. ETA: ~25 minutes.</div>
+            <div class="notif-time">9:15 AM · Just now</div>
+          </div>
+          <div class="notif-unread-dot"></div>
+        </div>
+        <div class="notif-item unread">
+          <div class="notif-icon green">✅</div>
+          <div class="notif-body">
+            <div class="notif-title">Pickup Confirmed</div>
+            <div class="notif-text">Your pickup #EBSR-2024-041 has been confirmed for Apr 8, 10:00 AM – 12:00 PM.</div>
+            <div class="notif-time">Yesterday · 4:32 PM</div>
+          </div>
+          <div class="notif-unread-dot"></div>
+        </div>
+        <div class="notif-item unread">
+          <div class="notif-icon blue">📜</div>
+          <div class="notif-body">
+            <div class="notif-title">Certificate Ready</div>
+            <div class="notif-text">Your RA 9003 Compliance Certificate for pickup #EBSR-2024-038 is ready to download.</div>
+            <div class="notif-time">Yesterday · 2:10 PM</div>
+          </div>
+          <div class="notif-unread-dot"></div>
+        </div>
+      </div>
+      <div class="notif-group-label">Earlier</div>
+      <div class="notif-list">
+        <div class="notif-item">
+          <div class="notif-icon green">⭐</div>
+          <div class="notif-body">
+            <div class="notif-title">Pickup Completed — Rate it!</div>
+            <div class="notif-text">GreenCycle Solutions completed pickup #EBSR-2024-038. 12 units, 48 kg diverted. How did it go?</div>
+            <div class="notif-time">Mar 28, 2026 · 3:45 PM</div>
+          </div>
+        </div>
+        <div class="notif-item">
+          <div class="notif-icon orange">🔔</div>
+          <div class="notif-body">
+            <div class="notif-title">Plan Renewal Reminder</div>
+            <div class="notif-text">Your SME Pro plan renews on Apr 30, 2026 (₱299). Tap to manage your subscription.</div>
+            <div class="notif-time">Mar 25, 2026 · 10:00 AM</div>
+          </div>
+        </div>
+        <div class="notif-item">
+          <div class="notif-icon red">🚨</div>
+          <div class="notif-body">
+            <div class="notif-title">Pickup Cancelled</div>
+            <div class="notif-text">Pickup #EBSR-2024-017 was cancelled — no collector matched your slot. Please reschedule.</div>
+            <div class="notif-time">Jan 5, 2026 · 8:00 AM</div>
+          </div>
+        </div>
+      </div>
+      <div style="height:16px;"></div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════
+       SECURE DATA WIPE
+  ═══════════════════════════════════════════════════════ -->
+  <div class="page" id="page-datawipe">
+    <div class="page-header">
+      <button class="back-btn" onclick="showPage('home')">←</button>
+      <div class="page-header-title">Secure Data Destruction</div>
+    </div>
+    <div class="scroll-sub">
+      <div class="dw-hero">
+        <div class="dw-icon">🛡️</div>
+        <div class="dw-title">Certified Data Wipe Service</div>
+        <div class="dw-sub">All data on decommissioned devices is permanently and verifiably destroyed — protecting your organization and your stakeholders.</div>
+        <div class="dw-tags">
+          <div class="dw-tag">RA 10173 Compliant</div>
+          <div class="dw-tag">DoD 5220.22-M Standard</div>
+          <div class="dw-tag">Certified Destruction Report</div>
+        </div>
+      </div>
+      <div class="dw-body">
+
+        <div class="dw-section">How It Works</div>
+        <div class="dw-steps">
+          <div class="dw-step">
+            <div class="dw-step-num">1</div>
+            <div>
+              <div class="dw-step-title">Add to Your Pickup</div>
+              <div class="dw-step-desc">Select "Secure Data Destruction" when scheduling. Works with any pickup request.</div>
+            </div>
+          </div>
+          <div class="dw-step">
+            <div class="dw-step-num">2</div>
+            <div>
+              <div class="dw-step-title">On-Site Data Wipe</div>
+              <div class="dw-step-desc">Our EMB-accredited collector uses certified software meeting DoD 5220.22-M standard.</div>
+            </div>
+          </div>
+          <div class="dw-step">
+            <div class="dw-step-num">3</div>
+            <div>
+              <div class="dw-step-title">Destruction Certificate</div>
+              <div class="dw-step-desc">A signed digital certificate issued per device — suitable for RA 10173 audit trails.</div>
+            </div>
+          </div>
+          <div class="dw-step">
+            <div class="dw-step-num">4</div>
+            <div>
+              <div class="dw-step-title">Responsible Disposal</div>
+              <div class="dw-step-desc">Hardware recycled under RA 9003 with a separate compliance certificate.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dw-section">Service Pricing</div>
+        <div class="dw-pricing">
+          <div class="dw-price-group">
+            <div class="dw-price-label">Data Destruction Add-On</div>
+            <div class="dw-price-amount">₱299</div>
+            <div class="dw-price-note">Per session · Includes destruction cert</div>
+          </div>
+          <div class="dw-divider-v"></div>
+          <div class="dw-price-group" style="text-align:right;">
+            <div class="dw-price-label">Bundle with RA 9003</div>
+            <div class="dw-price-amount">₱449</div>
+            <div class="dw-price-note">Save ₱49 vs. buying separately</div>
+          </div>
+        </div>
+
+        <div class="dw-section">Accepted Devices</div>
+        <div class="dw-devices">
+          <div class="dw-device">💻 Laptops &amp; Desktops</div>
+          <div class="dw-device">📱 Mobile Phones</div>
+          <div class="dw-device">💾 Hard Drives &amp; SSDs</div>
+          <div class="dw-device">🖨️ Printers w/ Memory</div>
+          <div class="dw-device">📋 Tablets</div>
+          <div class="dw-device">🗄️ Servers &amp; NAS</div>
+        </div>
+
+        <div class="info-box" style="margin-bottom:18px;">
+          <div class="info-box-icon">ℹ️</div>
+          <div class="info-box-text">Under <strong>RA 10173 (Data Privacy Act)</strong>, organizations must ensure personal data on decommissioned equipment is securely destroyed. Our service provides certified proof of compliance.</div>
+        </div>
+
+        <button class="btn-primary" onclick="showPage('schedule')">📦 Add to Pickup Schedule</button>
+        <div style="margin-top:10px;">
+          <button class="btn-outline" onclick="requestDataWipe()">🛡️ Request Standalone Wipe</button>
+        </div>
+        <div style="height:20px;"></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════
+       IMPACT ANALYTICS
+  ═══════════════════════════════════════════════════════ -->
+  <div class="page" id="page-analytics">
+    <div class="page-header">
+      <button class="back-btn" onclick="showPage('profile')">←</button>
+      <div class="page-header-title">Impact Analytics</div>
+      <span class="page-header-action" onclick="downloadCert()">Export</span>
+    </div>
+    <div class="scroll-sub">
+
+      <div class="analytics-hero">
+        <div class="analytics-hero-title">De La Salle University</div>
+        <div class="analytics-hero-sub">Apr 2025 – Apr 2026 · SME Pro Plan</div>
+      </div>
+
+      <div class="analytics-big-stats">
+        <div class="big-stat-card">
+          <div class="big-stat-num green">186 kg</div>
+          <div class="big-stat-label">E-Waste Diverted from Landfills</div>
+          <div class="big-stat-delta up">↑ +34 kg vs. last year</div>
+        </div>
+        <div class="big-stat-card">
+          <div class="big-stat-num">24</div>
+          <div class="big-stat-label">Pickup Sessions Completed</div>
+          <div class="big-stat-delta up">↑ +8 vs. last year</div>
+        </div>
+        <div class="big-stat-card">
+          <div class="big-stat-num green">12</div>
+          <div class="big-stat-label">RA 9003 Certificates Issued</div>
+          <div class="big-stat-delta up">↑ +4 vs. last year</div>
+        </div>
+        <div class="big-stat-card">
+          <div class="big-stat-num">~74 kg</div>
+          <div class="big-stat-label">Estimated CO₂ Equivalent Saved</div>
+          <div class="big-stat-delta up">↑ +12 kg vs. last year</div>
+        </div>
+      </div>
+
+      <!-- Monthly pickups chart -->
+      <div style="padding:0 20px 14px;">
+        <div class="chart-card">
+          <div class="chart-title">📅 Monthly Pickups (Last 6 months)</div>
+          <div class="bar-chart">
+            <div class="bar-wrap"><div class="bar" style="height:35%"></div><div class="bar-label">Nov</div></div>
+            <div class="bar-wrap"><div class="bar" style="height:50%"></div><div class="bar-label">Dec</div></div>
+            <div class="bar-wrap"><div class="bar" style="height:40%"></div><div class="bar-label">Jan</div></div>
+            <div class="bar-wrap"><div class="bar" style="height:65%"></div><div class="bar-label">Feb</div></div>
+            <div class="bar-wrap"><div class="bar" style="height:55%"></div><div class="bar-label">Mar</div></div>
+            <div class="bar-wrap current"><div class="bar current" style="height:80%"></div><div class="bar-label" style="color:var(--green);">Apr</div></div>
+          </div>
+        </div>
+
+        <!-- Waste by type -->
+        <div class="chart-card">
+          <div class="chart-title">📦 E-Waste by Type</div>
+          <div class="h-bar-list">
+            <div class="h-bar-item">
+              <div class="h-bar-label-row"><span class="h-bar-name">💻 Computers &amp; Laptops</span><span class="h-bar-value">72 kg</span></div>
+              <div class="h-bar-track"><div class="h-bar-fill" style="width:87%;"></div></div>
+            </div>
+            <div class="h-bar-item">
+              <div class="h-bar-label-row"><span class="h-bar-name">📱 Phones &amp; Tablets</span><span class="h-bar-value">38 kg</span></div>
+              <div class="h-bar-track"><div class="h-bar-fill" style="width:46%;"></div></div>
+            </div>
+            <div class="h-bar-item">
+              <div class="h-bar-label-row"><span class="h-bar-name">🖨️ Printers &amp; Peripherals</span><span class="h-bar-value">44 kg</span></div>
+              <div class="h-bar-track"><div class="h-bar-fill" style="width:53%;"></div></div>
+            </div>
+            <div class="h-bar-item">
+              <div class="h-bar-label-row"><span class="h-bar-name">🔋 Batteries &amp; Cables</span><span class="h-bar-value">32 kg</span></div>
+              <div class="h-bar-track"><div class="h-bar-fill" style="width:39%;background:var(--yellow);"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Milestones -->
+      <div class="section-header" style="margin-top:4px;">
+        <span class="section-title">Milestones</span>
+      </div>
+      <div class="milestone-list">
+        <div class="milestone">
+          <div class="milestone-icon">🏆</div>
+          <div>
+            <div class="milestone-title">100 kg Diverted</div>
+            <div class="milestone-sub">Reached Jun 2025</div>
+          </div>
+          <div class="milestone-badge"><span class="pill pill-green">Achieved</span></div>
+        </div>
+        <div class="milestone">
+          <div class="milestone-icon">🌱</div>
+          <div>
+            <div class="milestone-title">Zero Landfill Month</div>
+            <div class="milestone-sub">No cancelled pickups in Feb 2026</div>
+          </div>
+          <div class="milestone-badge"><span class="pill pill-green">Achieved</span></div>
+        </div>
+        <div class="milestone">
+          <div class="milestone-icon">⭐</div>
+          <div>
+            <div class="milestone-title">250 kg Diverted</div>
+            <div class="milestone-sub">64 kg remaining to unlock</div>
+          </div>
+          <div class="milestone-badge"><span class="pill pill-yellow">In Progress</span></div>
+        </div>
+      </div>
+
+      <div style="padding:0 20px 20px;">
+        <div class="info-box">
+          <div class="info-box-icon">♻️</div>
+          <div class="info-box-text">Your organization has diverted <strong>186 kg</strong> of e-waste from landfills this year, preventing an estimated <strong>74 kg of CO₂-equivalent</strong> emissions. Keep it up!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════
+       ORGANIZATION DETAILS
+  ═══════════════════════════════════════════════════════ -->
+  <div class="page" id="page-org-details">
+    <div class="page-header">
+      <button class="back-btn" onclick="showPage('profile')">←</button>
+      <div class="page-header-title">Organization Details</div>
+    </div>
+    <div class="scroll-sub">
+      <div class="org-body">
+
+        <div class="org-avatar-section">
+          <div class="org-av-large">D</div>
+          <div class="org-av-change">Change Logo</div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Organization Name</label>
+          <input class="form-input" type="text" value="De La Salle University" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Organization Type</label>
+          <select class="form-select">
+            <option selected>School / University</option>
+            <option>Office / SME</option>
+            <option>Hospital / Clinic</option>
+            <option>HOA / Community</option>
+            <option>Government / LGU</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Address</label>
+          <input class="form-input" type="text" value="2401 Taft Ave, Malate, Manila, 1004" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">City / Municipality</label>
+          <input class="form-input" type="text" value="Manila" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Contact Person</label>
+          <input class="form-input" type="text" value="IT Department Head" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Contact Email</label>
+          <input class="form-input" type="email" value="it@dlsu.edu.ph" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Contact Number</label>
+          <input class="form-input" type="tel" value="+63 2 8524 4611" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">RA 9003 Registration No. (optional)</label>
+          <input class="form-input" type="text" placeholder="e.g. EMB-REG-2022-XXXXX" />
+        </div>
+
+        <div class="info-box" style="margin-bottom:18px;">
+          <div class="info-box-icon">🔒</div>
+          <div class="info-box-text">Your organization data is stored securely and processed in accordance with <strong>RA 10173</strong> (Data Privacy Act of 2012).</div>
+        </div>
+
+        <button class="btn-primary" onclick="saveOrgDetails()">Save Changes</button>
+        <div style="height:20px;"></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════
+       BOTTOM NAV
+  ═══════════════════════════════════════════════════════ -->
+  <div class="bottom-nav hidden">
+    <div class="nav-item" id="nav-home" onclick="showPage('home')">
+      <div class="nav-icon">🏠</div>
+      <div class="nav-label">Home</div>
+    </div>
+    <div class="nav-item" id="nav-schedule" onclick="showPage('schedule')">
+      <div class="nav-icon">📦</div>
+      <div class="nav-label">Schedule</div>
+    </div>
+    <div class="nav-item" id="nav-history" onclick="showPage('history')">
+      <div class="nav-icon">📋</div>
+      <div class="nav-label">History</div>
+    </div>
+    <div class="nav-item" id="nav-profile" onclick="showPage('profile')">
+      <div class="nav-icon">👤</div>
+      <div class="nav-label">Profile</div>
+    </div>
+  </div>
+
+</div><!-- /.phone -->
+
+<script src="js/navigation.js"></script>
+<script src="js/home.js"></script>
+<script src="js/schedule.js"></script>
+<script src="js/history.js"></script>
+<script src="js/collectors.js"></script>
+<script src="js/profile.js"></script>
+</body>
+</html>

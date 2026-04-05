@@ -1,0 +1,126 @@
+/* ============================================================
+   COLLECTORS.CSS — Find Collectors list, Collector Detail
+   ============================================================ */
+
+/* ════════════════════════════════════
+   SEARCH BAR
+   ════════════════════════════════════ */
+.search-wrap {
+  background: var(--white);
+  padding: 10px 20px 12px;
+  border-bottom: 1px solid var(--border);
+}
+.search-bar {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--bg); border-radius: var(--r-sm);
+  padding: 10px 14px;
+}
+.search-bar input {
+  background: none; border: none; outline: none;
+  font-size: 13px; font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--text); flex: 1;
+}
+.search-bar input::placeholder { color: var(--text-muted); }
+.search-icon { font-size: 15px; color: var(--text-muted); flex-shrink: 0; }
+
+/* ════════════════════════════════════
+   FILTER CHIPS
+   ════════════════════════════════════ */
+.chip-row {
+  display: flex; gap: 7px;
+  padding: 10px 20px 10px;
+  overflow-x: auto; scrollbar-width: none;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+}
+.chip-row::-webkit-scrollbar { display: none; }
+.chip {
+  flex-shrink: 0;
+  padding: 6px 14px;
+  border-radius: var(--r-pill);
+  border: 1.5px solid var(--border);
+  font-size: 11px; font-weight: 700;
+  color: var(--text-sec);
+  cursor: pointer; background: var(--white);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  transition: all 0.15s;
+}
+.chip.active { background: var(--green); border-color: var(--green); color: white; }
+
+/* ════════════════════════════════════
+   COLLECTOR LIST
+   ════════════════════════════════════ */
+.clist-wrap { padding: 14px 20px 0; }
+
+/* ════════════════════════════════════
+   COLLECTOR DETAIL — HERO
+   ════════════════════════════════════ */
+.cd-hero {
+  background: linear-gradient(135deg, #1DB954, #0d7a38);
+  padding: 22px 20px 18px;
+  color: white; position: relative; overflow: hidden;
+}
+.cd-hero::before {
+  content: ''; position: absolute; right: -30px; top: -30px;
+  width: 160px; height: 160px;
+  background: rgba(255,255,255,0.06); border-radius: 50%;
+}
+.cd-top { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; position: relative; }
+.cd-avatar {
+  width: 54px; height: 54px; border-radius: 14px;
+  background: rgba(255,255,255,0.18);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; border: 2px solid rgba(255,255,255,0.35); flex-shrink: 0;
+}
+.cd-name { font-size: 16px; font-weight: 800; }
+.cd-sub  { font-size: 11px; opacity: 0.72; margin-top: 2px; font-family: 'DM Sans', sans-serif; }
+.cd-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.cd-tag {
+  background: rgba(255,255,255,0.14);
+  border: 1px solid rgba(255,255,255,0.22);
+  font-size: 10px; font-weight: 700;
+  padding: 3px 10px; border-radius: var(--r-pill); color: white;
+}
+
+/* ════════════════════════════════════
+   COLLECTOR DETAIL — STATS BAR
+   ════════════════════════════════════ */
+.cd-stats {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  background: var(--white); border-bottom: 1px solid var(--border);
+}
+.cd-stat { padding: 13px 8px; text-align: center; border-right: 1px solid var(--border); }
+.cd-stat:last-child { border-right: none; }
+.cd-stat-num { font-size: 16px; font-weight: 800; color: var(--text); }
+.cd-stat-num.green { color: var(--green); }
+.cd-stat-label { font-size: 10px; color: var(--text-sec); font-weight: 600; margin-top: 2px; }
+
+/* ════════════════════════════════════
+   COLLECTOR DETAIL — BODY
+   ════════════════════════════════════ */
+.cd-body { padding: 16px 20px; }
+.cd-section { font-size: 11px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.7px; margin-bottom: 10px; }
+
+.cd-info-card { background: var(--white); border-radius: var(--r-sm); box-shadow: var(--shadow); margin-bottom: 16px; overflow: hidden; }
+.cd-info-row { display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; border-top: 1px solid var(--border); }
+.cd-info-row:first-child { border-top: none; }
+.cd-info-icon { font-size: 15px; width: 20px; text-align: center; flex-shrink: 0; margin-top: 1px; }
+.cd-info-key  { font-size: 10px; color: var(--text-muted); font-weight: 700; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 0.4px; }
+.cd-info-val  { font-size: 13px; font-weight: 700; color: var(--text); }
+
+.cd-waste-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-bottom: 16px; }
+.cd-waste-item {
+  background: var(--bg); border-radius: var(--r-sm);
+  padding: 9px 12px; display: flex; align-items: center; gap: 8px;
+  font-size: 12px; font-weight: 600; color: var(--text);
+}
+
+.cd-review {
+  background: var(--white); border-radius: var(--r-sm);
+  padding: 12px 14px; margin-bottom: 8px; border: 1px solid var(--border);
+}
+.cd-review-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; }
+.cd-reviewer  { font-size: 12px; font-weight: 800; color: var(--text); }
+.cd-review-stars { font-size: 11px; color: var(--yellow); }
+.cd-review-date { font-size: 10px; color: var(--text-muted); font-weight: 600; margin-bottom: 6px; }
+.cd-review-text { font-size: 12px; color: var(--text-sec); font-family: 'DM Sans', sans-serif; line-height: 1.55; }
