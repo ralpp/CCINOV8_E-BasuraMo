@@ -124,3 +124,29 @@
 .cd-review-stars { font-size: 11px; color: var(--yellow); }
 .cd-review-date { font-size: 10px; color: var(--text-muted); font-weight: 600; margin-bottom: 6px; }
 .cd-review-text { font-size: 12px; color: var(--text-sec); font-family: 'DM Sans', sans-serif; line-height: 1.55; }
+
+/* ════════════════════════════════════
+   MAP VIEW PAGE
+   ════════════════════════════════════ */
+.map-canvas {
+  height: 360px;
+  background: #1e2a1e;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.map-legend {
+  display: flex;
+  gap: 18px;
+  padding: 10px 20px;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  align-items: center;
+}
+.map-legend-item {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 11px; font-weight: 700; color: var(--text-sec);
+}
+.map-legend-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  flex-shrink: 0;
+}
